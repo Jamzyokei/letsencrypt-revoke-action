@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyVersion>2.3.3</AssemblyVersion>
+    <AssemblyVersion Condition="$(CERTES_ASSEMBLYVERSION) != ''">$(CERTES_ASSEMBLYVERSION)</AssemblyVersion>
+    <Version>$(AssemblyVersion)$(CertesPackageVersionSuffix)</Version>
+    <FileVersion>$(AssemblyVersion)$(CertesFileVersionSuffix)</FileVersion>
+    <InformationalVersion>$(AssemblyVersion)$(CertesInformationalVersionSuffix)</InformationalVersion>
+    <Authors>Certes Contributors</Authors>
+    <Company />
+    <Product>Certes ACME Client</Product>
+    <Title>$(Product)</Title>
+    <Description>A client implementation for the Automated Certificate Management Environment (ACME) protocol.</Description>
+    <PackageTags>Certes;letsencrypt;ACME;HTTPS;SSL;Certificate;dotnettool</PackageTags>
+    <PackageProjectUrl>https://github.com/fszlin/certes</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/fszlin/certes</RepositoryUrl>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Certes.xml</DocumentationFile>
+    <PackageIcon>logo.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Certificates\dst-root-ca-x3.pem" />
+    <None Remove="Resources\Certificates\fake-le-root-x1.pem" />
+    <None Remove="Resources\Certificates\isrg-root-x1.pem" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Certificates\dst-root-ca-x3.pem" />
+    <EmbeddedResource Include="Resources\Certificates\fake-le-root-x1.pem" />
+    <EmbeddedResource Include="Resources\Certificates\isrg-root-x1.pem" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Net.Http" Condition="'$(TargetFramework)' == 'net45' Or '$(TargetFramework)' == 'net47'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.6" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" Condition="'$(TargetFramework)' == 'net45'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+
+</Project>
