@@ -21,7 +21,7 @@ namespace CinderBlockGames.GitHub.Actions.LERevoke
             HelpText = "The file holding the plaintext private key for the certificate being revoked.  REQUIRED if acmeAccountKeyPath is not provided.")]
         public string PrivateKeyPath { get; set; }
 
-        [Option("revocationReason",
+        [Option("reason",
             Required = false, Default = RevocationReason.Unspecified,
             HelpText = "The reason the certificate is being revoked.  See options at https://github.com/fszlin/certes/blob/master/src/Certes/Acme/Resource/RevocationReason.cs.")]
         public RevocationReason RevocationReason { get; set; }

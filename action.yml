@@ -1,0 +1,35 @@
+name: 'Revoke Certificate Issued by Let''s Encrypt'
+description: 'This action uses either an account key or a private key to revoke a certificate issued by Let''s Encrypt.'
+branding:
+  icon: lock
+  color: red
+inputs:
+  acmeAccountKeyPath:
+    description:
+      'The file holding the key associated with the account to use when communicating with Let''s Encrypt.  REQUIRED if certKeyPath is not provided.'
+    required: false
+  certChainPath:
+    description:
+      'The file holding the certificate to be revoked (and its chain).'
+    required: true
+  certKeyPath:
+    description:
+      'The file holding the plaintext private key for the certificate being revoked.  REQUIRED if acmeAccountKeyPath is not provided.'
+    required: false
+  reason:
+    description:
+      'The reason the certificate is being revoked.  See options at https://github.com/fszlin/certes/blob/master/src/Certes/Acme/Resource/RevocationReason.cs.'
+    required: false
+    default: 'Unspecified'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+  - '--acmeAccountKeyPath'
+  - ${{ inputs.acmeAccountKeyPath }}
+  - '--certChainPath'
+  - ${{ inputs.certChainPath }}
+  - '--certKeyPath'
+  - ${{ inputs.certKeyPath }}
+  - '--reason'
+  - ${{ inputs.reason }}
