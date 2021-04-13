@@ -53,14 +53,14 @@ namespace CinderBlockGames.GitHub.Actions.LERevoke
             if (context.Temporary) {
                 Console.WriteLine("Revoking certificate using private key...");
                 var chain = new CertificateChain(File.ReadAllText(chainPath));
-                await context.Value.RevokeCertificate(chain.Certificate.ToDer(), reason);
+                var key = KeyFactory.FromPem(File.ReadAllText(keyPath));
+                await context.Value.RevokeCertificate(chain.Certificate.ToDer(), reason, key);
             }
             else
             {
                 Console.WriteLine("Revoking certificate using account key...");
                 var chain = new CertificateChain(File.ReadAllText(chainPath));
-                var key = KeyFactory.FromPem(File.ReadAllText(keyPath));
-                await context.Value.RevokeCertificate(chain.Certificate.ToDer(), reason, key);
+                await context.Value.RevokeCertificate(chain.Certificate.ToDer(), reason);
             }
         }
 
