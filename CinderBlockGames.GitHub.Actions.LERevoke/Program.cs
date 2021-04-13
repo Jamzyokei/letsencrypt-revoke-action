@@ -46,6 +46,8 @@ namespace CinderBlockGames.GitHub.Actions.LERevoke
                     await DeactivateAccount(context.Value);
                 }
             }
+
+            Console.WriteLine("Complete!");
         }
 
         private static async Task RevokeCertificate(Context context, string chainPath, string keyPath, RevocationReason reason)
