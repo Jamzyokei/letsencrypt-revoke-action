@@ -78,7 +78,7 @@ namespace CinderBlockGames.GitHub.Actions.LERevoke
         {
             var server = WellKnownServers.LetsEncryptV2;
 #if DEBUG
-            //server = WellKnownServers.LetsEncryptStagingV2;
+            server = WellKnownServers.LetsEncryptStagingV2;
 #endif
 
             if (string.IsNullOrWhiteSpace(key))
