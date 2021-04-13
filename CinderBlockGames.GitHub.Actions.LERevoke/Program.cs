@@ -83,7 +83,7 @@ namespace CinderBlockGames.GitHub.Actions.LERevoke
             {
                 Console.WriteLine("Creating temporary ACME account...");
                 var acme = new AcmeContext(server);
-                var account = await acme.NewAccount("temporary@example.com", true);
+                var account = await acme.NewAccount("temporary@cinderblockgames.com", true);
                 return new Context { Value = acme, Temporary = true };
             }
             else
