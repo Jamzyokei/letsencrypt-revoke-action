@@ -55,7 +55,9 @@ namespace CinderBlockGames.GitHub.Actions.LERevoke
             if (context.Temporary) {
                 Console.WriteLine("Revoking certificate using private key...");
                 var chain = new CertificateChain(File.ReadAllText(chainPath));
-                var key = KeyFactory.FromPem(File.ReadAllText(keyPath));
+                var keyText = File.ReadAllText(keyPath);
+                keyText = keyText.Substring(keyText.IndexOf("-----")); // The line below breaks if the attributes lines are present before the key.
+                var key = KeyFactory.FromPem(keyText);
                 await context.Value.RevokeCertificate(chain.Certificate.ToDer(), reason, key);
             }
             else
@@ -76,7 +78,7 @@ namespace CinderBlockGames.GitHub.Actions.LERevoke
         {
             var server = WellKnownServers.LetsEncryptV2;
 #if DEBUG
-            server = WellKnownServers.LetsEncryptStagingV2;
+            //server = WellKnownServers.LetsEncryptStagingV2;
 #endif
 
             if (string.IsNullOrWhiteSpace(key))
