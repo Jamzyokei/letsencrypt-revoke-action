@@ -1,4 +1,4 @@
-# Revoke Certificate Issued by Let''s Encrypt
+# Revoke Certificate Issued by Let's Encrypt
 This action uses either an account key or a private key to revoke a certificate issued by Let's Encrypt.
 
 ## Inputs
